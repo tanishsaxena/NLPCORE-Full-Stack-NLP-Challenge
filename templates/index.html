@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLPCORE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='index.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron p-3">
+            <div class="well text-center">
+                <h1>NLPCORE Hring Competition</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <a class="btn btn-primary offset-1" id="container1" href="http://localhost:5000/task1" role="submit">Task1 <br> Plots on the basis of frequency & Occurence</a>
+        <a class="btn btn-primary offset-3" id="container2" href="http://localhost:5000/task2" role="submit">Task2 <br> Document Clustering & Word Cloud</a>
+        <a class="btn btn-primary offset-4" id="container3" href="http://localhost:5000/task3" role="submit">Task3 <br> Document Clustering on the basis of places and persons</a>   
+    </div>
+    <div class="container" id="footer">
+        <div class="jumbotron p-3">
+            <div class="well text-center">
+                <h1>Submitted By Tanish Saxena</h1>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

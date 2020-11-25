@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TASK-2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='task2.css')}}">
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+</head>
+<body>
+
+<!-----------------------------Script Part------------------------------------------->
+</script>
+
+  <script>
+    {%for subdata in data%}
+      {
+        var count=0
+        document.addEventListener('DOMContentLoaded', function() {
+          var div = document.createElement('div');
+          div.id = 'container_'.concat(count.toString());
+          
+          var temp_var,temp_ref_array=[], final_data=[]
+          
+          {%for i in subdata.Data%}
+            temp_var='{{i}}'
+            temp_var=temp_var.split(',')
+            temp_ref_array.push(temp_var)
+          {%endfor%}
+
+          final_data = temp_ref_array.map(word => {
+            return {
+              "x":word[0].replace(/[^A-Z]+/gi," ").replace(/^\s+|\s+$/g, ""),
+              "value":word[1].replace(/[^0-9]+/gi," ").replace(/^\s+|\s+$/g, "")
+              }
+            })
+
+          anychart.onDocumentReady(function() {
+          //Passing data to chart
+          var chart = anychart.tagCloud(final_data);
+          // set a chart title
+          chart.title('{{subdata.Cluster}}')
+          chart.angles([0, -90, 90,45])
+          chart.colorRange().length('90%');
+          chart.container(div.id);
+          chart.draw();
+          });
+
+          document.body.appendChild(div);
+          document.getElementById(div.id).style.width="900px";
+          document.getElementById(div.id).style.height="400px";
+          document.getElementById(div.id).style.margin="auto";
+          document.getElementById(div.id).style.position="relative";
+          document.getElementById(div.id).style.padding="auto";
+        }, false);
+
+        count=count+1;    
+      }
+    {%endfor%}
+  </script>
+</body>
+</html>

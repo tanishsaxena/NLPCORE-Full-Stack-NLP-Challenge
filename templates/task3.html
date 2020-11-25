@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <title>TASK-3</title>
+</head>
+<body>
+    <div class=".container-fluid">
+        <div class="row">
+            <div class="jumbotron">
+                {%for name in person%}
+                <h4>{{name}}</h4>
+                {%endfor%}
+            </div>
+            
+            <div class="jumbotron well text-center">
+                <h1>Classification Based on Person Name</h1>
+                <img src="../static/person.png" class="img-fluid" alt="Responsive image">
+            </div>
+        </div>
+    </div>
+
+    <div class=".container-fluid">
+        <div class="row">
+            <div class="jumbotron span-4">
+                {%for name in place%}
+                <h4>{{name}}</h4>
+                {%endfor%}
+            </div>
+            
+            <div class="jumbotron well text-center">
+                <h1>Classification Based on Place Name</h1>
+                <img src="../static/place.png" class="img-fluid" alt="Responsive image">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

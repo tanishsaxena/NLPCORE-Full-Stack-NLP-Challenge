@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TASK-1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <link rel="stylesheet" href="{{url_for('static', filename='task1.css')}}">
+</head>
+
+<body>
+  <div class="container" id="div1">
+    <canvas id="myChart1" width="1100" height="500"></canvas>
+  </div>
+  <div class="container" id="div2">
+    <canvas id="myChart2" width="1100" height="500"></canvas>
+  </div>
+  <div class="container well text-center">
+    <input id="Button3" type="button" class="btn btn-success" value="HideAll" onclick="switchhide();"/>
+    <input id="Button1" type="button" class="btn btn-danger" value="Occurence" onclick="switchVisible();"/>
+    <input id="Button2" type="button" class="btn btn-dark" value="Frequency" onclick="switchVisible2();"/>
+  </div>
+  <script>
+    function switchhide()
+    {
+      document.getElementById('div1').style.display="none";
+      document.getElementById('div2').style.display="none";
+    }
+    function switchVisible()
+    {
+      if (document.getElementById('div1'))
+      {  
+        if (document.getElementById('div1').style.display == 'none')
+        {
+          if (document.getElementById('div2').style.display = 'block')
+          {
+            document.getElementById('div2').style.display = 'none';
+          }
+          document.getElementById('div1').style.display = 'block';
+        }
+        else
+        {
+          if (document.getElementById('div2').style.display == 'block')
+          {
+            document.getElementById('div2').style.display = 'none';
+          }
+          document.getElementById('div1').style.display = 'block';
+        }
+                 
+      }
+    }
+   
+    function switchVisible2()
+    {
+      if (document.getElementById('div2'))
+      {
+        if (document.getElementById('div2').style.display == 'none')
+        {               
+          if (document.getElementById('div1').style.display = 'block')
+          {
+            document.getElementById('div1').style.display = 'none';
+          }
+          document.getElementById('div2').style.display = 'block';
+        }
+        else
+        {
+          if (document.getElementById('div1').style.display == 'block')
+          {
+            document.getElementById('div1').style.display = 'none';
+          }
+          document.getElementById('div2').style.display = 'block';
+        }           
+      }
+    }
+
+    Chart.defaults.global.responsive = false;
+    var chartData = {
+      labels :[
+                {% for item in hist2Att %}
+                "{{item}}",
+                {% endfor %}
+              ],
+      datasets :[
+                  {
+                    label:"Total Frequency",
+                    fill: true,
+                    lineTension: 0.1,
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 2,
+                    pointHitRadius: 10,
+                    backgroundColor: "blue",
+                    borderColor: "rgba(75,192,192,1)",
+                    data :[
+                            {% for item in hist2Val %}
+                            "{{item}}",
+                            {% endfor %}
+                          ] 
+                  }
+                ]
+            }
+    var ctx = document.getElementById("myChart2").getContext("2d");
+    var myChart = new Chart(ctx, {
+                              type: 'bar',
+                              data: chartData,
+                              options: {
+                                        legend: {
+                                            labels: {
+                                              fontColor: 'black'
+                                                    }
+                                                },
+                                        scales: {
+                                          yAxes: [{
+                                            ticks: {
+                                              fontColor:"black"
+                                              }
+                                            }],
+                                          xAxes: [{
+                                            ticks: {
+                                              fontColor:"black"
+                                              }
+                                            }]
+                                          }
+                                        }
+                                  });
+
+
+    Chart.defaults.global.responsive = false;
+    var chartData = {
+      labels :[
+                {% for item in hist1Att %}
+                "{{item}}",
+                {% endfor %}
+              ],
+      datasets :[
+                  {
+                    label:"Commonly Occured",
+                    fill: true,
+                    lineTension: 0.1,
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 2,
+                    pointHitRadius: 10,
+                    backgroundColor: "red",
+                    borderColor: "orange",
+                    data :[
+                            {% for item in hist1Val %}
+                            "{{item}}",
+                            {% endfor %}
+                          ] 
+                  }
+                ]
+            }
+    var ctx = document.getElementById("myChart1").getContext("2d");
+    var myChart = new Chart(ctx, {
+                              type: 'bar',
+                              data: chartData,
+                              options: {
+                                        legend: {
+                                            labels: {
+                                              fontColor: 'black'
+                                                    }
+                                                },
+                                        scales: {
+                                          yAxes: [{
+                                            ticks: {
+                                              fontColor:"black"
+                                              }
+                                            }],
+                                          xAxes: [{
+                                            ticks: {
+                                              fontColor:"black"
+                                              }
+                                            }]
+                                          }
+                                        }
+                                  });
+
+  </script>
+</body>
+</html>
