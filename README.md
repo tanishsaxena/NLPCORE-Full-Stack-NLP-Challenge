@@ -23,25 +23,25 @@ To run this project firstly you have to install all the dependent libraries few 
 ### Frontend Explaination:
 As you browse to your local host a main page will appear.
 
-![Main Page]("https://ibb.co/McWHvt0")
+![Main Page]("Images/Main_Index_Page.png")
 
 Then Clicking upon the 1st Button will take you to the Solution for Task 1.
 
-![Task 1 Frequency]("https://ibb.co/ZLWDQpJ")
+![Task 1 Frequency]("Images/Chart_for_frequency.png")
 
-![Task1 Occurence]("https://ibb.co/3NWWJJS")
+![Task1 Occurence]("Images/Chart_for_Occurence.png")
 
 Then again coming back to the main page clicking upon the 2nd button for task 2.
 
-![Task 2 1]("https://ibb.co/tJmbtjw")
-![Task 2 2]("https://ibb.co/qjBjW8k")
-![Task 2 3]("https://ibb.co/6bB2rSV")
+![Task 2 1]("Images/Document_clustering_1.png")
+![Task 2 2]("Images/Document_clustering_2.png")
+![Task 2 3]("Images/Frequency_visible_on_hover.png")
 
 Then at last coming back to the main page and clicking upon the 3rd button for task 3.
 
-![Task 3 Place]("https://ibb.co/JtFWWvV")
+![Task 3 Place]("Images/clustering_places_name.png")
 
-![Task 3 Person]("https://ibb.co/ZX6Ydzm")
+![Task 3 Person]("Images/Clustering_person_name.png")
 
 ### Code Flow:
 
