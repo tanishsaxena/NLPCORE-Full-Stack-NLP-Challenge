@@ -21,23 +21,23 @@ To run this project firstly you have to install all the dependent libraries few 
 **The project is ready to use**
 
 ### Frontend Explaination:
-As you browse to your local host a main page will appear.
+#### As you browse to your local host a main page will appear.
 
 ![Main Page](Images/Main_Index_Page.png)
 
-Then Clicking upon the 1st Button will take you to the Solution for Task 1.
+#### Then Clicking upon the 1st Button will take you to the Solution for Task 1.
 
 ![Task 1 Frequency](Images/Chart_for_frequency.png)
 
 ![Task1 Occurence](Images/Chart_for_Occurence.png)
 
-Then again coming back to the main page clicking upon the 2nd button for task 2.
+#### Then again coming back to the main page clicking upon the 2nd button for task 2.
 
 ![Task 2 1](Images/Document_clustering_1.png)
 ![Task 2 2](Images/Document_clustering_2.png)
 ![Task 2 3](Images/Frequency_visible_on_hover.png)
 
-Then at last coming back to the main page and clicking upon the 3rd button for task 3.
+#### Then at last coming back to the main page and clicking upon the 3rd button for task 3.
 
 ![Task 3 Place](Images/clustering_places_name.png)
 
