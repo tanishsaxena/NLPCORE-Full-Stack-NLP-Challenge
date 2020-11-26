@@ -64,14 +64,14 @@ Code is been divided into two parts:
 
 ## Screen Shots of NLP Processing Scripts
 * ### Task 2:
-![Task21](Images/Task21)
+![Task21](Images/Task21.png)
 
-![Task22](Images/Task22)
+![Task22](Images/Task22.png)
 
 * ### Task 3:
-![Task31](Images/Task31)
+![Task31](Images/Task31.png)
 
-![Task32](Images/Task32)
+![Task32](Images/Task32.png)
 
 
 # END of PROJECT 
