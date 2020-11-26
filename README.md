@@ -62,4 +62,16 @@ Code is been divided into two parts:
   * K-Means Clustering Algo is being used to cluster documents.
 * In **Third** task I have used NLP tools and Spacy Library to identify various places names and person names from all documents and then categorized them using the tf approach of frequency.
 
+## Screen Shots of NLP Processing Scripts
+* ### Task 2:
+![Task21](Images/Task21)
+
+![Task22](Images/Task22)
+
+* ### Task 3:
+![Task31](Images/Task31)
+
+![Task32](Images/Task32)
+
+
 # END of PROJECT 
