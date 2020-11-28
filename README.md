@@ -39,9 +39,9 @@ To run this project firstly you have to install all the dependent libraries few 
 
 #### Then at last coming back to the main page and clicking upon the 3rd button for task 3.
 
-![Task 3 Place](Images/clustering_places_name.png)
+![Task 3 Place](Images/Person_name.png)
 
-![Task 3 Person](Images/Clustering_person_name.png)
+![Task 3 Person](Images/Place_name.png)
 
 ### Code Flow:
 
