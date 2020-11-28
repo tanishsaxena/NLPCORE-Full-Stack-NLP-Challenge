@@ -1,42 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    <title>TASK-3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <title>TASK-3</title>
 </head>
 <body>
-    <div class=".container-fluid">
-        <div class="row">
-            <div class="jumbotron">
-                {%for name in person%}
-                <h4>{{name}}</h4>
-                {%endfor%}
-            </div>
-            
-            <div class="jumbotron well text-center">
-                <h1>Classification Based on Person Name</h1>
-                <img src="../static/person.png" class="img-fluid" alt="Responsive image">
-            </div>
-        </div>
-    </div>
+  
+  <div id="Person_chart" style="width: 100%; height: 700px;"></div>
+  <div id="Place_chart" style="width: 100%; height: 700px;"></div>
+  <script type="text/javascript">
+	  var person_temp,person_temp_array=[], person_final_data=[]
+    var place_temp,place_temp_array=[], place_final_data=[]
 
-    <div class=".container-fluid">
-        <div class="row">
-            <div class="jumbotron span-4">
-                {%for name in place%}
-                <h4>{{name}}</h4>
-                {%endfor%}
-            </div>
-            
-            <div class="jumbotron well text-center">
-                <h1>Classification Based on Place Name</h1>
-                <img src="../static/place.png" class="img-fluid" alt="Responsive image">
-            </div>
-        </div>
-    </div>
+    {%for perdata in person%}
+      person_temp='{{perdata}}'
+      person_temp=person_temp.split(",")
+      person_temp_array.push(person_temp)
+      person_final_data = person_temp_array.map(word => {
+            return [
+              word[0].replace(/[^A-Z]+/gi," ").replace(/^\s+|\s+$/g, ""),
+              parseFloat(word[1].replace(/^\s+|\s+$/g, "")),
+              parseFloat(word[2].replace(/^\s+|\s+$/g, "")),
+              word[3].replace(/[^A-Z]+/gi," ").replace(/^\s+|\s+$/g, ""),
+              parseFloat(word[4].replace(/^\s+|\s+$/g, ""))
+                ]
+              })
+    {%endfor%}
+    person_final_data[0][1]="Attribute 1"
+    person_final_data[0][2]="Attribute 2"
+    person_final_data[0][4]="Bubble Size"
 
+
+
+
+    {%for pladata in place%}
+      place_temp='{{pladata}}'
+      place_temp=place_temp.split(",")
+      place_temp_array.push(place_temp)
+      place_final_data = place_temp_array.map(word => {
+            return [
+              word[0].replace(/[^A-Z]+/gi," ").replace(/^\s+|\s+$/g, ""),
+              parseFloat(word[1].replace(/^\s+|\s+$/g, "")),
+              parseFloat(word[2].replace(/^\s+|\s+$/g, "")),
+              word[3].replace(/[^A-Z]+/gi," ").replace(/^\s+|\s+$/g, ""),
+              parseFloat(word[4].replace(/^\s+|\s+$/g, ""))
+                ]
+              })
+    {%endfor%}
+    place_final_data[0][1]="Attribute 1"
+    place_final_data[0][2]="Attribute 2"
+    place_final_data[0][4]="Bubble Size"
+	
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawPersonChart);
+  
+    function drawPersonChart() {  
+      var data = google.visualization.arrayToDataTable(person_final_data);
+      var options = {
+        title: 'Clustering of Documents on the basis of Person Name',
+        hAxis: {title: 'Attribute 1'},
+        vAxis: {title: 'Attribute 2'},
+        bubble: {textStyle: {fontSize: 0.1}}
+      };
+      var chart = new google.visualization.BubbleChart(document.getElementById('Person_chart'));
+      chart.draw(data, options);
+    }
+
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawPlaceChart);
+  
+    function drawPlaceChart() { 
+      var data = google.visualization.arrayToDataTable(place_final_data);
+      var options = {
+        title: 'Clustering of Documents on the basis of Place Name',
+        hAxis: {title: 'Attribute 1'},
+        vAxis: {title: 'Attribute 2'},
+        bubble: {textStyle: {fontSize: 0.1}}
+      };
+      var chart = new google.visualization.BubbleChart(document.getElementById('Place_chart'));
+      chart.draw(data, options);
+    }
+  </script>
 </body>
 </html>

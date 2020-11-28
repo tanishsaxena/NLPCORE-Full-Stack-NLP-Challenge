@@ -7,66 +7,82 @@ import pandas as pd
 import io
 import base64
 import json
+import threading
+import queue
 
-#Data Processing
-def dataProcess(person_doc,place_doc):
+def process_person(q,person_doc):
+    person={"Title":[],"Doc_Number":[],"Cluster":[]}
 
-    #Dictionary to store data fetched from db
-    person={"Cluster":[],"Doc_Number":[],"Title":[]}
-    place={"Cluster":[],"Doc_Number":[],"Title":[]}
-
-    #Fetching Collection from db
     for perdoc in person_doc:
         person["Cluster"].append(perdoc["cluster"])
         person["Doc_Number"].append(perdoc["docNumber"])
         person["Title"].append(perdoc["title"])
-        
+
+    #Process to label titles
+    df_person_categorization=pd.DataFrame.from_dict(person)
+
+    person_titles=df_person_categorization["Title"].to_list()
+
+    le = preprocessing.LabelEncoder()
+
+    le_person_titles=le.fit_transform(person_titles)
+
+    df_person_categorization["labeled_titled"]=le_person_titles
+
+    #PCA Analyses
+    X_person=np.array(df_person_categorization[["Doc_Number","labeled_titled"]])
+    pca = PCA(n_components=2)
+    principalComponents_person = pca.fit_transform(X_person)
+
+    #Final Datafreame Creation
+    final_person=pd.DataFrame(principalComponents_person,columns=["Doc_Number","labeled_title"])
+    final_person["Persons"]=df_person_categorization["Cluster"]
+    final_person["Titles"]=df_person_categorization["Title"]
+
+    cols=final_person.columns.to_list()
+    cols = cols[-1:] + cols[:-1]
+    final_person=final_person[cols]
+
+    q.put(final_person)
+
+
+
+
+def process_place(p,place_doc):
+    place={"Title":[],"Doc_Number":[],"Cluster":[]}
+
     for pladoc in place_doc:
         place["Cluster"].append(pladoc["cluster"])
         place["Doc_Number"].append(pladoc["docNumber"])
         place["Title"].append(pladoc["title"])
 
-    #Dataframe conversion and processing of data
-    df_person_categorization=pd.DataFrame.from_dict(person)
+    #Process to label titles
     df_place_categorization=pd.DataFrame.from_dict(place)
 
-    person_labels=df_person_categorization["Cluster"].to_list()
-    place_labels=df_place_categorization["Cluster"].tolist()
+    place_titles=df_place_categorization["Title"].to_list()
 
-    person_titles=df_person_categorization["Title"].to_list()
-    place_titles=df_place_categorization["Title"].tolist()
-
-    ##Label Encoding to neutralize the data
     le = preprocessing.LabelEncoder()
 
-    le_person_labels=le.fit_transform(person_labels)
-    le_place_labels=le.fit_transform(place_labels)
-
-    le_person_titles=le.fit_transform(person_titles)
     le_place_titles=le.fit_transform(place_titles)
 
+    df_place_categorization["labeled_titled"]=le_place_titles
 
-    df_person_categorization["Title"]=le_person_titles
-    df_place_categorization["Title"]=le_place_titles
-
-    df_person_categorization["Cluster"]=le_person_labels
-    df_place_categorization["Cluster"]=le_place_labels
-
-    # X data for principle component analyses
-    X_person=np.array(df_person_categorization[["Doc_Number","Title"]])
-    X_place=np.array(df_place_categorization[["Doc_Number","Title"]])
-
-    #Principle Component Analysis
+    #PCA Analyses
+    X_place=np.array(df_place_categorization[["Doc_Number","labeled_titled"]])
     pca = PCA(n_components=2)
-    principalComponents_person = pca.fit_transform(X_person)
     principalComponents_place = pca.fit_transform(X_place)
 
-    # Y Values for person and place clusters
-    y_person=list(df_person_categorization["Cluster"])
-    y_place=list(df_place_categorization["Cluster"])
+    #Final Datafreame Creation
+    final_place=pd.DataFrame(principalComponents_place,columns=["Doc_Number","labeled_title"])
+    final_place["Places"]=df_place_categorization["Cluster"]
+    final_place["Titles"]=df_place_categorization["Title"]
 
-    #returning pca components and cluster values for both person and place categories
-    return principalComponents_person,principalComponents_place,y_person,y_place,person_labels,place_labels
+    cols=final_place.columns.to_list()
+    cols = cols[-1:] + cols[:-1]
+    final_place=final_place[cols]
+
+    p.put(final_place)
+
 
 #Main Function
 def main():
@@ -79,7 +95,16 @@ def main():
     data_place = json.load(file) 
     data_place = json.loads(data_place) 
 
-    X_person,X_place,Y_person,Y_place,labels_person,labels_place=dataProcess(data_person,data_place)
+    person=queue.Queue()
+    place=queue.Queue()
 
-    return X_person,X_place,Y_person,Y_place,labels_person,labels_place
-    
+    th_person=threading.Thread(target=process_person,args=(person,data_person,))
+    th_place=threading.Thread(target=process_place,args=(place,data_place,))
+
+    th_person.start()
+    th_place.start()
+
+    th_person.join()
+    th_place.join()
+
+    return person.get(),place.get()

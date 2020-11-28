@@ -5,6 +5,7 @@ import os
 import shutil
 import matplotlib.pyplot as plt
 import matplotlib
+import re
 matplotlib.use('Agg')
 
 #Flask App Generation
@@ -34,35 +35,29 @@ def task2():
 @app.route('/task3', methods=['GET','POST'])
 def task3():
     import task3 as t3
-    X_person,X_place,Y_person,Y_place,labels_person,labels_place=t3.main()
+    df_person,df_place=t3.main()
 
 
-    ##Visualizing based on person categpries
-    plt.figure(figsize=(8,5))
-    plt.scatter(X_person[:, 0], X_person[:, 1], 
-    c = Y_person,
-    s = 90,
-    )
-    plt.savefig("person.png",bbox_inches="tight")
-    plt.close() 
-    
-    #Visualizing based on place categpries
-    plt.figure(figsize=(8,5))
-    plt.scatter(X_place[:, 0], X_place[:, 1], 
-    c = Y_place,
-    s = 90,
-    )
-    plt.savefig("place.png",bbox_inches="tight")
-    plt.close()
+    person_title_temp=[re.sub('[^a-zA-Z0-9 \n\.]', '', a) for a in df_person["Titles"]]
+    df_person["Titles"]=person_title_temp
+    df_person["bubble_size"]=[0.3 for i in range(len(df_person))]
 
-    target_dir="static"
+    place_title_temp=[re.sub('[^a-zA-Z0-9 \n\.]', '', a) for a in df_place["Titles"]]
+    df_place["Titles"]=place_title_temp
+    df_place["bubble_size"]=[0.1 for i in range(len(df_place))]
 
-    #Changing files directory
-    for file_name in os.listdir(os.getcwd()):
-        if file_name=="person.png" or file_name=="place.png":
-            shutil.move( file_name, os.path.join(target_dir,file_name))
-  
-    return render_template("task3.html",person=set(labels_person),place=set(labels_place))
+    person_cols=list(df_person.columns)
+    place_cols=list(df_place.columns)
+
+    resultant_person=df_person.values.tolist()
+    resultant_person.append(person_cols)
+    resultant_person=resultant_person[-1:]+resultant_person[:-1]
+
+    resultant_place=df_place.values.tolist()
+    resultant_place.append(place_cols)
+    resultant_place=resultant_place[-1:]+resultant_place[:-1]
+
+    return render_template("task3.html",person=resultant_person,place=resultant_place)
 
 #Main Condition
 if __name__=="__main__":
