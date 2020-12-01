@@ -16,7 +16,8 @@ To run this project firstly you have to install all the dependent libraries few 
 ### Process to run the project:
 * Clone this repository.
 * Run the app.py file.
-* Do npm start
+* Do npm install in /frontend/
+* Do nmp start in /frontend/
 * Browse to your local host.
 
 **The project is ready to use**
