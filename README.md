@@ -24,7 +24,7 @@ To run this project firstly you have to install all the dependent libraries few 
 ### Frontend Explaination:
 #### As you browse to your local host a main page will appear.
 
-![Main Page](Images/Screenshot (187).png)
+![Main Page](Images/Images/Screenshot%20(187).png)
 
 #### Then Clicking upon the 1st Button will take you to the Solution for Task 1.
 
