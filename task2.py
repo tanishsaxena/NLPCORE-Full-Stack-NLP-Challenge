@@ -10,9 +10,9 @@ def word_count(str):
     counts=dict(nltk.FreqDist(words))
     final=[]
     for word in range(len(list(counts.keys()))):
-        temp=[]
-        temp.append(list(counts.keys())[word])
-        temp.append(list(counts.values())[word])
+        temp={"text":"","value":None}
+        temp["text"]=list(counts.keys())[word]
+        temp["value"]=list(counts.values())[word]
         final.append(temp)    
     sorted_count= sorted(counts.items(), key=operator.itemgetter(1),reverse=True)
     return final,sorted_count[:6]

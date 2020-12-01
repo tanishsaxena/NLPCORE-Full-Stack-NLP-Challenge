@@ -1,0 +1,37 @@
+#Link1
+{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+}
+#Link2
+{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+#Link3
+{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 30%;
+    left: 60%;
+}
+#Heading
+{
+    text-align: center;
+}
+
+#Footer
+{
+    margin-top: 250px;
+    text-align: center;
+}

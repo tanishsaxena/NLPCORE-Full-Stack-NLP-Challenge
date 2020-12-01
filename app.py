@@ -7,15 +7,17 @@ import matplotlib.pyplot as plt
 import matplotlib
 import re
 matplotlib.use('Agg')
+import json
+from flask_cors import CORS
 
 #Flask App Generation
 app = flask.Flask(__name__,static_folder="static\\")
 app.config["DEBUG"] = True
-
+CORS(app)
 #Routing Functions
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("Main.html")
 
 
 @app.route('/task1', methods=['GET','POST'])
@@ -23,14 +25,29 @@ def task1():
     import task1 as t1
     obj=t1.task1("Data")
     result=obj.main()
-    return render_template('task1.html',hist1Att=result["Attribute"][:100],hist1Val=result["Occur"][:100],hist2Att=result["Attribute"][:100],hist2Val=result["Freq"][:100])
+    occ=[]
+    occ.append(["Word","Occurence"])
+    freq=[]
+    freq.append(["Word","Frequency"])
+    for i in range(100):
+        tempoccu=[]
+        tempoccu.append(str(result["Attribute"].iloc[i]))
+        tempoccu.append(int(result["Occur"].iloc[i]))
+        occ.append(tempoccu)
 
+        tempfreq=[]
+        tempfreq.append(str(result["Attribute"].iloc[i]))
+        tempfreq.append(int(result["Freq"].iloc[i]))
+        freq.append(tempfreq)
+
+    data={"Occur":occ,"Freq":freq}
+    return json.dumps(data,indent=4)
 
 @app.route('/task2', methods=['GET','POST'])
 def task2():
     import task2 as t2
     resultant=t2.main()
-    return render_template('task2.html',data=resultant)
+    return json.dumps(resultant)
 
 @app.route('/task3', methods=['GET','POST'])
 def task3():
@@ -57,8 +74,8 @@ def task3():
     resultant_place.append(place_cols)
     resultant_place=resultant_place[-1:]+resultant_place[:-1]
 
-    return render_template("task3.html",person=resultant_person,place=resultant_place)
-
+    data={"person":resultant_person,"place":resultant_place}
+    return json.dumps(data)
 #Main Condition
 if __name__=="__main__":
     app.run()
