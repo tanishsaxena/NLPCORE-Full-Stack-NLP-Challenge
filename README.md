@@ -24,24 +24,24 @@ To run this project firstly you have to install all the dependent libraries few 
 ### Frontend Explaination:
 #### As you browse to your local host a main page will appear.
 
-![Main Page](Images/Images/Screenshot%20(187).png)
+![Main Page](Images/Images/Screenshot(187).png)
 
 #### Then Clicking upon the 1st Button will take you to the Solution for Task 1.
 
-![Task 1 Frequency](Images/Screenshot (188).png)
+![Task 1 Frequency](Images/Screenshot(188).png)
 
-![Task1 Occurence](Images/Screenshot (189).png)
+![Task1 Occurence](Images/Screenshot(189).png)
 
 #### Then again coming back to the main page clicking upon the 2nd button for task 2.
 
-![Task 2 1](Images/Screenshot (190).png)
-![Task 2 2](Images/Screenshot (191).png)
+![Task 2 1](Images/Screenshot(190).png)
+![Task 2 2](Images/Screenshot(191).png)
 
 #### Then at last coming back to the main page and clicking upon the 3rd button for task 3.
 
-![Task 3 Place](Images/Screenshot (192).png)
+![Task 3 Place](Images/Screenshot(192).png)
 
-![Task 3 Person](Images/Screenshot (193).png)
+![Task 3 Person](Images/Screenshot(193).png)
 
 ### Code Flow:
 
